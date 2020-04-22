@@ -224,8 +224,5 @@ public class WriteActivity extends AppCompatActivity implements View.OnClickList
 
     /////////////업로드
 
-
-
-
 }
 
