@@ -1,4 +1,4 @@
-package com.example.photopostiongyang;
+package com.example.photopostiongyang.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.photopostiongyang.Adapter.MainAdapter;
 import com.example.photopostiongyang.Model.Board;
+import com.example.photopostiongyang.R;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -42,11 +43,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void onEvent(@NonNull QuerySnapshot queryDocumentSnapshots, @NonNull FirebaseFirestoreException e) {
                         for(DocumentChange document:queryDocumentSnapshots.getDocumentChanges()){
 
-                           // String id=(String) document.getDocument().get("id");
+                            // String id=(String) document.getDocument().get("id");
                             String title=(String)document.getDocument().get("Title");
                             String contents=(String)document.getDocument().get("contents");
-                           // String name=(String)document.getDocument().get("Name");
-                            Board data=new Board(title,contents);
+                             String name=(String)document.getDocument().get("name");
+                            Board data=new Board(title,name);
                             mBoardList.add(data);
                         }
                         mainAdapter=new MainAdapter(mBoardList);

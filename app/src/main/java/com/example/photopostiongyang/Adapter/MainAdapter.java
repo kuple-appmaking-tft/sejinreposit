@@ -21,6 +21,20 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         this.mBoardList=mBoardList;
     }
 
+    class MainViewHolder extends RecyclerView.ViewHolder{
+        private TextView mTitleTextView;        //item_main의 객체를 불러옴...작은네모칸에 들어갈 얘들 선언
+        private TextView mNameTextView;
+        private TextView mContentsTextView;
+
+        public MainViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            mTitleTextView=itemView.findViewById(R.id.item_title_text);
+            mNameTextView=itemView.findViewById(R.id.item_name_text);
+            mContentsTextView=itemView.findViewById(R.id.item_contents_text);
+        }
+    }
+
     @NonNull
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,6 +46,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         Board data=mBoardList.get(position);
         holder.mTitleTextView.setText(data.getTitle());
         holder.mNameTextView.setText(data.getName());
+        holder.mContentsTextView.setText(data.getContents());
+
+
     }
 
     @Override
@@ -39,16 +56,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
         return mBoardList.size();
     }
 
-    class MainViewHolder extends RecyclerView.ViewHolder{
-        private TextView mTitleTextView;        //item_main의 객체를 불러옴...작은네모칸에 들어갈 얘들 선언
-        private TextView mNameTextView;
 
-        public MainViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            mTitleTextView=itemView.findViewById(R.id.item_title_text);
-            mNameTextView=itemView.findViewById(R.id.item_name_text);
-        }
-    }
 }
 
