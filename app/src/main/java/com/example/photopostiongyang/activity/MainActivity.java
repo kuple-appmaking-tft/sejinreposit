@@ -22,7 +22,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private RecyclerView mMainRecyclerView;
-    private FirebaseFirestore mStore=FirebaseFirestore.getInstance();
+    private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
     private MainAdapter mainAdapter;
     private List<Board> mBoardList;
 
@@ -33,27 +33,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //findViewById(R.id.imageButton1).setOnClickListener(this);
         //플로팅버튼
         findViewById(R.id.float_btn).setOnClickListener(this);
-        mMainRecyclerView=findViewById(R.id.main_recycler_view);
+        mMainRecyclerView = findViewById(R.id.main_recycler_view);
         //파이어베이스에서 읽어오기
-        mBoardList=new ArrayList<>();
+        mBoardList = new ArrayList<>();
 
         mStore.collection("Board")
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@NonNull QuerySnapshot queryDocumentSnapshots, @NonNull FirebaseFirestoreException e) {
-                        for(DocumentChange document:queryDocumentSnapshots.getDocumentChanges()){
+                        for (DocumentChange document : queryDocumentSnapshots.getDocumentChanges()) {
 
                             // String id=(String) document.getDocument().get("id");
-                            String title=(String)document.getDocument().get("Title");
-                            String contents=(String)document.getDocument().get("contents");
-                             String name=(String)document.getDocument().get("name");
-                            Board data=new Board(title,name);
+                            String title = (String) document.getDocument().get("Title");
+                            String contents = (String) document.getDocument().get("contents");
+                            String name = (String) document.getDocument().get("name");
+                            Board data = new Board(title, name);
                             mBoardList.add(data);
                         }
-                        mainAdapter=new MainAdapter(mBoardList);
+                        mainAdapter = new MainAdapter(mBoardList);
+
+                        mainAdapter.setOnItemClickListener(
+                                new MainAdapter.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(View v, int pos) {
+
+                                        Intent intent = new Intent(getApplicationContext(),BoardActivity.class);
+                                        startActivity(intent);
+
+
+                                    }
+                                }
+
+                        );
+
                         mMainRecyclerView.setAdapter(mainAdapter);
                     }
                 });
+
+
     }
 
     @Override

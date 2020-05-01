@@ -42,7 +42,7 @@ public class GalleryActivity extends BasicActivity {
             ActivityCompat.requestPermissions(GalleryActivity.this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     1);
-            if (ActivityCompat.shouldShowRequestPermissionRationale(GalleryActivity.this,
+            if(ActivityCompat.shouldShowRequestPermissionRationale(GalleryActivity.this,
                     Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
             } else {

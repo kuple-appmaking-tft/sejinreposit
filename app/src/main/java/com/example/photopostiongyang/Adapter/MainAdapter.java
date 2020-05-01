@@ -16,6 +16,17 @@ import java.util.List;
 public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder>{
 
     private List<Board> mBoardList;   //데이터를 리스트형식 (model형으로 제네릭)
+    public interface OnItemClickListener{
+        void onItemClick(View v, int pos);
+    }
+
+    private OnItemClickListener mListener = null ;
+
+    // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener ;
+    }
+
 
     public MainAdapter(List<Board> mBoardList) {//데이터 들어오면 저장해주는 생성자
         this.mBoardList=mBoardList;
@@ -28,6 +39,17 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
         public MainViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener(){
+                public void onClick(View v){
+                    int pos = getAdapterPosition();
+                    if(pos != RecyclerView.NO_POSITION){
+                        if(mListener != null){
+                            mListener.onItemClick(v,pos);
+                        }
+                    }
+                }
+            });
 
             mTitleTextView=itemView.findViewById(R.id.item_title_text);
             mNameTextView=itemView.findViewById(R.id.item_name_text);
